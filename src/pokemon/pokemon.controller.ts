@@ -6,13 +6,13 @@ import {
   Patch,
   Param,
   Delete,
-  Version,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 
-@Controller('pokemon')
+// versioning the API using controller
+@Controller({ path: 'pokemon', version: '1' })
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
@@ -21,7 +21,9 @@ export class PokemonController {
     return this.pokemonService.create(createPokemonDto);
   }
 
-  @Version('1')
+  // versioning the API using
+  // the @Version() decorator
+  // @Version('1')
   @Get()
   findAll() {
     return this.pokemonService.findAll();
@@ -31,7 +33,6 @@ export class PokemonController {
   findOne(@Param('id') id: string) {
     return this.pokemonService.findOne(+id);
   }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
     return this.pokemonService.update(+id, updatePokemonDto);

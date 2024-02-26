@@ -7,6 +7,8 @@ async function bootstrap() {
   // set the global prefix to 'api' use the setGlobalPrefix() method
   app.setGlobalPrefix('api');
   // enable versioning for the API using the enableVersioning() method
+  // use @version() decorator to version the API
+  // in controller
   app.enableVersioning({
     type: VersioningType.URI,
   });
