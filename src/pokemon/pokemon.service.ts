@@ -25,13 +25,7 @@ export class PokemonService {
       const pokemon = await this.pokeModel.create(createPokemonDto);
       return pokemon;
     } catch (error) {
-      if (error.code === 11000) {
-        // error 11000 is a duplicate key error in MongoDB
-        throw new BadRequestException(
-          `Pokemon already exists ${JSON.stringify(error.keyValue)}`,
-        );
-      }
-      throw new InternalServerErrorException('Internal Server Error');
+      this.handleException(error);
     }
   }
 
@@ -81,15 +75,21 @@ export class PokemonService {
         ...updatePokemonDto,
       };
     } catch (error) {
-      if (error.code === 11000) {
-        throw new BadRequestException(
-          `Pokemon already exists ${JSON.stringify(error.keyValue)}`,
-        );
-      }
-      throw new InternalServerErrorException('Internal Server Error');
+      this.handleException(error);
     }
   }
-  remove(id: string) {
-    return `This action removes a #${id} pokemon`;
+  async remove(id: string): Promise<any> {
+    const pokemon = await this.findOne(id);
+    // return this.pokeModel.deleteOne({ _id: id }).exec();
+    await pokemon.deleteOne();
+  }
+
+  private handleException(error: any) {
+    if (error.code === 11000) {
+      throw new BadRequestException(
+        `Pokemon already exists ${JSON.stringify(error.keyValue)}`,
+      );
+    }
+    throw new InternalServerErrorException('Internal Server Error');
   }
 }
