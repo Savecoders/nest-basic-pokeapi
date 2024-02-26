@@ -16,11 +16,11 @@ export class Pokemon {
     unique: true,
     index: true,
   })
-  name: string;
+  num: number;
   @Prop({
     unique: true,
     index: true,
   })
-  num: number;
+  name: string;
 }
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);
