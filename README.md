@@ -43,6 +43,12 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## Up docker Mongo
+
+```bash
+  docker-compose up -d
+```
+
 ## Temas de la seccion 7
 
 Temas puntuales de la sección
