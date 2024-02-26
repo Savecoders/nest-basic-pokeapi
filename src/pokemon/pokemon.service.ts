@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { Pokemon } from './entities/pokemon.entity';
+import { Pokemon, PokemonDocument } from './entities/pokemon.entity';
 import { Model, isValidObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -16,7 +16,7 @@ export class PokemonService {
   // Solid Principle: Dependency Inversion
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokeModel: Model<Pokemon>,
+    private readonly pokeModel: Model<PokemonDocument>,
   ) {}
   // implement the create() method to create a new Pokemon
   async create(createPokemonDto: CreatePokemonDto): Promise<Pokemon> {
@@ -39,8 +39,8 @@ export class PokemonService {
     return this.pokeModel.find().exec();
   }
 
-  async findOne(term: string): Promise<Pokemon> {
-    let pokemon: Pokemon;
+  async findOne(term: string): Promise<PokemonDocument> {
+    let pokemon: PokemonDocument;
 
     if (!isNaN(+term)) {
       pokemon = await this.pokeModel.findOne({ num: term }).exec();
@@ -69,10 +69,26 @@ export class PokemonService {
     return pokemon;
   }
 
-  update(id: string, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  async update(term: string, updatePokemonDto: UpdatePokemonDto) {
+    const pokemon = await this.findOne(term);
+    try {
+      if (updatePokemonDto.name) {
+        updatePokemonDto.name = updatePokemonDto.name.toLocaleLowerCase();
+      }
+      await this.pokeModel.updateOne({ name: pokemon.name }, updatePokemonDto);
+      return {
+        ...pokemon.toJSON(),
+        ...updatePokemonDto,
+      };
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new BadRequestException(
+          `Pokemon already exists ${JSON.stringify(error.keyValue)}`,
+        );
+      }
+      throw new InternalServerErrorException('Internal Server Error');
+    }
   }
-
   remove(id: string) {
     return `This action removes a #${id} pokemon`;
   }
