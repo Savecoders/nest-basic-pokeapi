@@ -69,3 +69,19 @@ Esta sección enteramente se enfoca en la grabación a base de datos, pero puntu
 - DTOs y sus extensiones
 
 - Respaldar a Github
+
+## Temas puntuales de la sección 8
+
+Esta sección tiene por objetivo aprender:
+
+- Uso de modelos en diferentes módulos
+
+- SEED para llenar la base de datos
+
+- Paginación de resultados
+
+- DTOs para Query parameters
+
+- Transformaciones de DTOs
+
+- Inserciones por lote y varias formas de lograrlo.
