@@ -9,6 +9,7 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Pokemon } from './entities/pokemon.entity';
 import { Model, isValidObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class PokemonService {
@@ -30,8 +31,19 @@ export class PokemonService {
   }
 
   // implement query parameters with limit, skip, and sort
-  async findAll(): Promise<Pokemon[]> {
-    return this.pokeModel.find().limit(10).exec();
+  async findAll(paginationDto: PaginationDto): Promise<Pokemon[]> {
+    const { limit = 10, offset = 0 } = paginationDto;
+    return this.pokeModel
+      .find()
+      .limit(limit)
+      .skip(offset)
+      .sort({
+        num: 1,
+      })
+      .select('-__v')
+      .exec();
+    // select -__v remove __v in the objects
+    // exec() returns a promise
   }
 
   async findOne(term: string): Promise<Pokemon> {
