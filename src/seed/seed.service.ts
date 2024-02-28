@@ -20,14 +20,22 @@ export class SeedService {
   // }
 
   async executeSeed() {
+    await this.pokeModel.deleteMany({}).exec(); // delete all documents
+
     const { data } = await this.httpService.axiosRef.get<PokeResponse>(
-      'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0',
+      'https://pokeapi.co/api/v2/pokemon?limit=650&offset=0',
     );
-    data.results.forEach(async ({ name, url }) => {
-      const segments = url.split('/');
-      const num = +segments[segments.length - 2];
-      await this.pokeModel.create({ num, name });
-    });
+
+    const pokemonToInsert: { name: string; num: number }[] = data.results.map(
+      ({ name, url }) => {
+        const segments = url.split('/');
+        const num = +segments[segments.length - 2];
+        return { name, num };
+      },
+    );
+
+    // insertMany is faster than insertOne
+    await this.pokeModel.insertMany(pokemonToInsert);
     return data.results;
   }
 }
