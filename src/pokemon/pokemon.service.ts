@@ -29,8 +29,9 @@ export class PokemonService {
     }
   }
 
+  // implement query parameters with limit, skip, and sort
   async findAll(): Promise<Pokemon[]> {
-    return this.pokeModel.find().exec();
+    return this.pokeModel.find().limit(10).exec();
   }
 
   async findOne(term: string): Promise<Pokemon> {
