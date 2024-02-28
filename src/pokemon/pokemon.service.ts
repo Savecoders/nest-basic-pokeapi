@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { Pokemon, PokemonDocument } from './entities/pokemon.entity';
+import { Pokemon } from './entities/pokemon.entity';
 import { Model, isValidObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -16,7 +16,7 @@ export class PokemonService {
   // Solid Principle: Dependency Inversion
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokeModel: Model<PokemonDocument>,
+    private readonly pokeModel: Model<Pokemon>,
   ) {}
   // implement the create() method to create a new Pokemon
   async create(createPokemonDto: CreatePokemonDto): Promise<Pokemon> {
@@ -33,8 +33,8 @@ export class PokemonService {
     return this.pokeModel.find().exec();
   }
 
-  async findOne(term: string): Promise<PokemonDocument> {
-    let pokemon: PokemonDocument;
+  async findOne(term: string): Promise<Pokemon> {
+    let pokemon: Pokemon;
 
     if (!isNaN(+term)) {
       pokemon = await this.pokeModel.findOne({ num: term }).exec();
