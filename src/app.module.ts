@@ -12,8 +12,8 @@ import { SeedModule } from './seed/seed.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    PokemonModule,
     MongooseModule.forRoot('mongodb://localhost:27017/nest-pokemon'),
+    PokemonModule,
     CommonModule,
     SeedModule,
   ],

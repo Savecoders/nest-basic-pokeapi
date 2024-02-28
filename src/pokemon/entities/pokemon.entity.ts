@@ -1,13 +1,12 @@
+import { Injectable } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document } from 'mongoose';
 
 // Document is a type provided by Mongoose
 // that represents a single document in the database.
-
-export type PokemonDocument = HydratedDocument<Pokemon>;
-
+@Injectable()
 @Schema()
-export class Pokemon {
+export class Pokemon extends Document {
   //! ID: not create id because it will be created by MongoDB
   // @Prop() is a decorator provided by Mongoose
   // that allows you to define the schema of a field.
