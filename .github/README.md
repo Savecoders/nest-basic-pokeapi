@@ -30,6 +30,18 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+## Up docker Mongo
+
+```bash
+  docker-compose up -d
+```
+
+## Execute Seeds
+
+```bash
+  http://localhost:3000/api/v1/seed
+```
+
 ## Test
 
 ```bash
@@ -41,12 +53,6 @@ $ pnpm run test:e2e
 
 # test coverage
 $ pnpm run test:cov
-```
-
-## Up docker Mongo
-
-```bash
-  docker-compose up -d
 ```
 
 ## Temas de la seccion 7
@@ -85,3 +91,27 @@ Esta sección tiene por objetivo aprender:
 - Transformaciones de DTOs
 
 - Inserciones por lote y varias formas de lograrlo.
+
+## Temas puntuales de la sección 9
+
+En esta sección trabajaremos en la configuración de variables de entorno y su validación:
+
+Puntualmente veremos:
+
+- Dockerizacion
+
+- Mongo Atlas
+
+- Env file
+
+- joi
+
+- Validation Schemas
+
+- Configuration Module
+
+- Recomendaciones para un Readme útil
+
+- Despliegues
+
+- Dockerfile
