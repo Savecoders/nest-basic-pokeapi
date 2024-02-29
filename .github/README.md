@@ -14,26 +14,40 @@
 ## Installation
 
 ```bash
-$ pnpm install
-```
-
-## Running the app
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+ pnpm install
 ```
 
 ## Up docker Mongo
 
 ```bash
   docker-compose up -d
+```
+
+## Clone `.env.template` and rename to `.env`
+
+```bash
+  mv .env.template .env
+```
+
+## Write the .envs
+
+```bash
+MONGODB=
+PORT=
+DEFAULT_LIMIT=
+```
+
+## Running the app
+
+```bash
+# development
+ pnpm run start
+
+# watch mode
+ pnpm run start:dev
+
+# production mode
+ pnpm run start:prod
 ```
 
 ## Execute Seeds
