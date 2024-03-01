@@ -11,13 +11,13 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## 📦 Installation
 
 ```bash
  pnpm install
 ```
 
-## Up docker Mongo
+## 📦 Up docker Mongo
 
 ```bash
   docker-compose up -d
@@ -37,7 +37,7 @@ PORT=
 DEFAULT_LIMIT=
 ```
 
-## Running the app
+## 🚀 Running the app
 
 ```bash
 # development
@@ -50,13 +50,13 @@ DEFAULT_LIMIT=
  pnpm run start:prod
 ```
 
-## Execute Seeds
+## 🚀 Execute Seeds
 
 ```bash
   http://localhost:3000/api/v1/seed
 ```
 
-## Test
+## 👩‍💻 Test
 
 ```bash
 # unit tests
@@ -69,7 +69,7 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-## Temas de la seccion 7
+## 📝 Temas de la seccion 7
 
 Temas puntuales de la sección
 Esta sección enteramente se enfoca en la grabación a base de datos, pero puntualmente:
@@ -90,7 +90,7 @@ Esta sección enteramente se enfoca en la grabación a base de datos, pero puntu
 
 - Respaldar a Github
 
-## Temas puntuales de la sección 8
+## 📝 Temas puntuales de la sección 8
 
 Esta sección tiene por objetivo aprender:
 
@@ -106,7 +106,7 @@ Esta sección tiene por objetivo aprender:
 
 - Inserciones por lote y varias formas de lograrlo.
 
-## Temas puntuales de la sección 9
+## 📝 Temas puntuales de la sección 9
 
 En esta sección trabajaremos en la configuración de variables de entorno y su validación:
 
@@ -129,3 +129,14 @@ Puntualmente veremos:
 - Despliegues
 
 - Dockerfile
+
+> [!NOTE]
+> Por defecto, docker-compose usa el archivo .env, por lo que si tienen el archivo .env y lo configuran con sus variables de entorno de producción, bastaría con
+
+## Build Docker
+
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+
+## Run Docker
+
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up
